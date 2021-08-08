@@ -18,7 +18,7 @@ function sumAll(arr) {
   let newArr = arr.sort((a,b) => a-b);
   let first = newArr[0];
   let last = newArr[1];
-  let sum = (first + last) * (last - first + 1) / 2;
+  let num = (first + last) * (last - first + 1) / 2;
   return num;
 }
 
