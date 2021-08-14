@@ -82,5 +82,6 @@ function destroyer(arr) {
 
 destroyer([1, 2, 3, 1, 2, 3], 2, 3);
 ```
-* 使用扩展符号,第一个参数为arr，其余参数为args
+* 使用扩展符号,第一个参数为arr，其余参数为args   
+
 `const destroyer = (arr, ...args) => arr.filter(i => !args.includes(i));`
