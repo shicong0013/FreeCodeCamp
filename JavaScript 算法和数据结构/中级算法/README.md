@@ -1,5 +1,6 @@
 * [范围内的数字求和](#范围内的数字求和)
 * [数组的对称差](#数组的对称差)
+* [过滤数组元素](#过滤数组元素)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -52,3 +53,34 @@ function diffArray(arr1, arr2) {
 
 diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);
 ```
+
+####  过滤数组元素
+你将获得一个初始数组（destroyer 函数中的第一个参数），后跟一个或多个参数。 从初始数组中移除所有与后续参数相等的元素。
+注意： 你可以使用 arguments 对象。
+* 使用`Array.prototype.slice.call(arguments)`方法,删除重复的数组，返回去空后的数组
+```
+function destroyer(arr) {
+  var args = Array.prototype.slice.call(arguments,1);
+  for(let i = 0; i < arr.length; i++) {
+    for(let j = 0; j < args.length; j++) {
+      if(arr[i] === args[j]) {
+        delete arr[i];
+      }
+    }
+  }
+  return arr.filter(Boolean);
+}
+
+destroyer([1, 2, 3, 1, 2, 3], 2, 3);
+```
+* 使用`Array.from(arguments)`方法，返回不重复的数组
+```
+function destroyer(arr) {
+  let args = Array.from(arguments).slice(1);
+  return arr.filter(x => !args.includes(x));
+}
+
+destroyer([1, 2, 3, 1, 2, 3], 2, 3);
+```
+* 使用扩展符号,第一个参数为arr，其余参数为args
+`const destroyer = (arr, ...args) => arr.filter(i => !args.includes(i));`
