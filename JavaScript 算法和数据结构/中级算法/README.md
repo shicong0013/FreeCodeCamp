@@ -1,6 +1,7 @@
 * [范围内的数字求和](#范围内的数字求和)
 * [数组的对称差](#数组的对称差)
 * [过滤数组元素](#过滤数组元素)
+* [找出包含特定键值对的对象](#找出包含特定键值对的对象)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -84,4 +85,27 @@ destroyer([1, 2, 3, 1, 2, 3], 2, 3);
 ```
 * 使用扩展符号,第一个参数为arr，其余参数为args   
 
-`const destroyer = (arr, ...args) => arr.filter(i => !args.includes(i));`
+`const destroyer = (arr, ...args) => arr.filter(i => !args.includes(i));`   
+
+#### 找出包含特定键值对的对象   
+创建一个查看对象数组（第一个参数）的函数，并返回具有匹配的名称和值对的所有对象的数组（第二个参数）。 如果要包含在返回的数组中，则源对象的每个名称和值对都必须存在于集合中的对象中。   
+比如，如果第一个参数是 `[{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }]`，第二个参数是 `{ last: "Capulet" }`。
+```
+function whatIsInAName(collection, source) {
+  var Keys = Object.keys(source);
+  // 只修改这一行下面的代码
+  return collection.filter(function(obj) {
+    for(let i = 0; i < Keys.length; i++) {
+      //因为source有时是多组数据，当两个条件为真时如果返回真，那后一组数据条件不满足的话会导致结果错误，所有条件改为有一个条件为假时就返回假，到循环结束都没返回假时则这个对象为满足条件的对象
+      if(!obj.hasOwnProperty(Keys[i]) || obj[Keys[i]] !== source[Keys[i]]) {
+        return false;
+      }
+    }
+    return true;
+  })
+  // 只修改这一行上面的代码
+}
+
+whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+```
+
