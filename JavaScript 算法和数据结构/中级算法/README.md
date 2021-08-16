@@ -61,7 +61,7 @@ diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);
 * 使用`Array.prototype.slice.call(arguments)`方法,删除重复的数组，返回去空后的数组
 ```
 function destroyer(arr) {
-  var args = Array.prototype.slice.call(arguments,1);
+  let args = Array.prototype.slice.call(arguments,1);
   for(let i = 0; i < arr.length; i++) {
     for(let j = 0; j < args.length; j++) {
       if(arr[i] === args[j]) {
@@ -92,16 +92,34 @@ destroyer([1, 2, 3, 1, 2, 3], 2, 3);
 比如，如果第一个参数是 `[{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }]`，第二个参数是 `{ last: "Capulet" }`。
 ```
 function whatIsInAName(collection, source) {
-  var Keys = Object.keys(source);
+  let Keys = Object.keys(source);
   // 只修改这一行下面的代码
   return collection.filter(function(obj) {
     for(let i = 0; i < Keys.length; i++) {
-      //因为source有时是多组数据，当两个条件为真时如果返回真，那后一组数据条件不满足的话会导致结果错误，所有条件改为有一个条件为假时就返回假，到循环结束都没返回假时则这个对象为满足条件的对象
+      //因为source有时是多组数据，当两个条件为真时如果返回真，那后一组数据条件不满足的话会导致结果错误
+      //所以条件改为有一个条件为假时就返回假，到循环结束都没返回假时则这个对象为满足条件的对象
       if(!obj.hasOwnProperty(Keys[i]) || obj[Keys[i]] !== source[Keys[i]]) {
         return false;
       }
     }
     return true;
+  })
+  // 只修改这一行上面的代码
+}
+
+whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+```
+* 优化，用`every()`代替`for`
+```
+function whatIsInAName(collection, source) {
+  let keys = Object.keys(source);
+  // 只修改这一行下面的代码
+  return collection.filter(function(obj) {
+    return keys.every(function(key) {
+      //every会对数组内所有元素做判断，只有有一个不满足条件就返回false
+      //所有可以用 &&
+      return obj.hasOwnProperty(key) && obj[key] === source[key];
+    })
   })
   // 只修改这一行上面的代码
 }
