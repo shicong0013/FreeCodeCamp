@@ -126,4 +126,18 @@ function whatIsInAName(collection, source) {
 
 whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
 ```
+* 使用`map()`替换`every()`
+```
+function whatIsInAName(collection, source) {
+  var keys = Object.keys(source);
+  // 只修改这一行下面的代码
+  return collection.filter(obj =>
+    //map()会对数组内每个值进行条件判断并返回结果 
+    keys.map(key => obj.hasOwnProperty(key) && obj[key] === source[key])
+      //reduce()对mao()判断的结果再进行判断，全为真时则obj符合条件
+      .reduce((a,b) => a && b ));
+  // 只修改这一行上面的代码
+}
 
+whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+```
