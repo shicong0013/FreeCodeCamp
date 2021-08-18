@@ -198,14 +198,27 @@ translatePigLatin("california");
 注意： 在更换原始单词时保留原始单词中第一个字符的大小写。 即如果传入的第二个参数为 Book，第三个参数为 dog，那么替换后的结果应为 Dog   
 ```
 function myReplace(str, before, after) {
-  //单词第一次出现的位置
-  let index = str.indexOf(before);
   //需要被替换的单词首字母是否和进行大写转换的首字母一致
   if(str[index] === str[index].toUpperCase()) {
     //一致则把after首字母转化大写
     after = after.charAt(0).toUpperCase() + after.slice(1);
   } else {
     //不一致则说明before首字母为小写
+    after = after.charAt(0).toLowerCase() + after.slice(1);
+  }
+  str = str.replace(before, after)
+  return str;
+}
+
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
+```
+* 使用正则
+```
+function myReplace(str, before, after) {
+  //检查第一个字母是否为大写
+  if(/[A-Z]/.test(before)) {
+    after = after.charAt(0).toUpperCase() + after.slice(1);
+  } else {
     after = after.charAt(0).toLowerCase() + after.slice(1);
   }
   str = str.replace(before, after)
