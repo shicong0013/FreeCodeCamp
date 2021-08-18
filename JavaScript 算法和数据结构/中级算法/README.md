@@ -3,6 +3,7 @@
 * [过滤数组元素](#过滤数组元素)
 * [找出包含特定键值对的对象](#找出包含特定键值对的对象)
 * [短线连接格式](#短线连接格式)
+* [儿童黑话](#儿童黑话)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -160,4 +161,31 @@ function spinalCase(str) {
 }
 //正则(?=[A-Z])表示匹配以大写字母开始
 spinalCase('This Is Spinal Tap');
+```
+#### 儿童黑话
+儿童黑话也叫 Pig Latin，是一种英语语言游戏。 规则如下：  
+-如果单词以辅音开头，就把第一个辅音字母或第一组辅音簇移到单词的结尾，并在后面加上 ay。  
+-如果单词以元音开头，只需要在结尾加上 way。  
+```
+function translatePigLatin(str) {
+  let pigLatin = '';
+  //匹配元音,因为只用匹配一次所以不应加gi
+  let regex = /[aeiou]/;
+  //判断字符串第一个字母是否为元音
+  if (str[0].match(regex)) {
+      pigLatin = str + 'way';
+    } else if(str.match(regex) === null) {
+      //全辅音单词直接加ay
+        pigLatin = str + 'ay';
+      } else {
+          //第一个元音的位置
+          let vowelIndice = str.indexOf(str.match(regex));
+          //第一个元音到最后一个字符+第一个字符到第一个元音+ay
+          pigLatin = str.substr(vowelIndice) + str.substr(0, vowelIndice) + 'ay';
+          }
+  console.log(pigLatin);
+  return pigLatin;
+}
+
+translatePigLatin("california");
 ```
