@@ -2,6 +2,7 @@
 * [数组的对称差](#数组的对称差)
 * [过滤数组元素](#过滤数组元素)
 * [找出包含特定键值对的对象](#找出包含特定键值对的对象)
+* [短线连接格式](#短线连接格式)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -139,5 +140,24 @@ function whatIsInAName(collection, source) {
   // 只修改这一行上面的代码
 }
 
-whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });  
+```
+#### 短线连接格式
+将字符串转换为短线连接格式。 短线连接格式是小写单词全部小写并以破折号分隔。
+```
+function spinalCase(str) {
+  let regx = /\s+|_+/g;
+  str = str.replace(/([a-z])([A-Z])/g,'$1 $2'); //匹配小写与大写字母，$1和$2是对应的匹配结果，用空格分隔
+  return str.replace(regx, '-').toLowerCase();
+}
+
+spinalCase('AllThe-small Things');
+```
+* 优化，使用`split()`分割字符串再连接
+```
+function spinalCase(str) {
+  return str.split(/\s|_|(?=[A-Z])/).join('-').toLowerCase();
+}
+//正则(?=[A-Z])表示匹配以大写字母开始
+spinalCase('This Is Spinal Tap');
 ```
