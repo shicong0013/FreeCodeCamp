@@ -4,6 +4,7 @@
 * [找出包含特定键值对的对象](#找出包含特定键值对的对象)
 * [短线连接格式](#短线连接格式)
 * [儿童黑话](#儿童黑话)
+* [搜索与替换](#搜索与替换)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -188,4 +189,28 @@ function translatePigLatin(str) {
 }
 
 translatePigLatin("california");
+```
+#### 搜索与替换
+在这道题目中，我们需要写一个字符串的搜索与替换函数，它的返回值为完成替换后的新字符串。   
+这个函数接收的第一个参数为待替换的句子。   
+第二个参数为句中需要被替换的单词。   
+第三个参数为替换后的单词。   
+注意： 在更换原始单词时保留原始单词中第一个字符的大小写。 即如果传入的第二个参数为 Book，第三个参数为 dog，那么替换后的结果应为 Dog   
+```
+function myReplace(str, before, after) {
+  //单词第一次出现的位置
+  let index = str.indexOf(before);
+  //需要被替换的单词首字母是否和进行大写转换的首字母一致
+  if(str[index] === str[index].toUpperCase()) {
+    //一致则把after首字母转化大写
+    after = after.charAt(0).toUpperCase() + after.slice(1);
+  } else {
+    //不一致则说明before首字母为小写
+    after = after.charAt(0).toLowerCase() + after.slice(1);
+  }
+  str = str.replace(before, after)
+  return str;
+}
+
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
 ```
