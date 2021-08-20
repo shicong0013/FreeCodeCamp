@@ -5,6 +5,7 @@
 * [短线连接格式](#短线连接格式)
 * [儿童黑话](#儿童黑话)
 * [搜索与替换](#搜索与替换)
+* [DNA 配对](#DNA 配对)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -226,4 +227,54 @@ function myReplace(str, before, after) {
 }
 
 myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
+```
+
+#### DNA 配对
+给出的 DNA 链上缺少配对元素。 请基于每个字符，获取与其配对的元素，并将结果作为二维数组返回。      
+DNA 的碱基对 有两种形式：一种是 A 与 T，一种是 C 与 G。 请为参数中给出的每个字符配对相应的碱基。   
+注意，参数中给出的字符应作为每个子数组中的第一个元素返回。   
+例如，传入 GCG 时，应返回 [["G", "C"], ["C","G"], ["G", "C"]]。   
+字符和它的配对组成一个数组中，所有配对数组放在一个数组里。   
+* 遍历字符挨个替换
+```
+function pairElement(str) {
+  let newStr = [];
+  let search = function(x) {
+    switch(x) {
+      case 'A':
+        newStr.push(['A','T']);
+        break;
+      case 'T':
+        newStr.push(['T','A']);
+        break;
+      case 'C':
+        newStr.push(['C','G']);
+        break;
+      case 'G':
+        newStr.push(['G','C']);
+        break;
+    }
+  }
+  for(let i = 0; i < str.length; i++) {
+    search(str[i]);
+  }
+  return newStr;
+}
+
+pairElement("GCG");
+```
+* 使用类似哈希表的方式，查找对应的匹配
+```
+function pairElement(str) {
+  let pairs = {
+    'A': ['A','T'],
+    'T': ['T','A'],
+    'C': ['C','G'],
+    'G': ['G','C']
+  }
+  let arr = str.split('');
+  return arr.map(x => pairs[x]);
+}
+
+pairElement("GCG");
 ```
