@@ -6,6 +6,7 @@
 * [儿童黑话](#儿童黑话)
 * [搜索与替换](#搜索与替换)
 * [DNA配对](#DNA配对)
+* [寻找缺失的字母](#寻找缺失的字母)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -33,6 +34,7 @@ function sumAll(arr) {
 
 sumAll([1, 4]);
 ```
+
 #### 数组的对称差
 比较两个数组并返回一个新数组，包含所有只在其中一个数组中出现的元素，排除两个数组都存在的元素。 换言之，我们需要返回两个数组的对称差。
 * 合并两个数组后参照两个数组，只有有一个返回没有则添加至返回结果中
@@ -145,6 +147,7 @@ function whatIsInAName(collection, source) {
 
 whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });  
 ```
+
 #### 短线连接格式
 将字符串转换为短线连接格式。 短线连接格式是小写单词全部小写并以破折号分隔。
 ```
@@ -164,6 +167,7 @@ function spinalCase(str) {
 //正则(?=[A-Z])表示匹配以大写字母开始
 spinalCase('This Is Spinal Tap');
 ```
+
 #### 儿童黑话
 儿童黑话也叫 Pig Latin，是一种英语语言游戏。 规则如下：  
 -如果单词以辅音开头，就把第一个辅音字母或第一组辅音簇移到单词的结尾，并在后面加上 ay。  
@@ -191,6 +195,7 @@ function translatePigLatin(str) {
 
 translatePigLatin("california");
 ```
+
 #### 搜索与替换
 在这道题目中，我们需要写一个字符串的搜索与替换函数，它的返回值为完成替换后的新字符串。   
 这个函数接收的第一个参数为待替换的句子。   
@@ -277,4 +282,60 @@ function pairElement(str) {
 }
 
 pairElement("GCG");
+```
+
+#### 寻找缺失的字母
+在这道题目中，我们需要写一个函数，找出传入的字符串里缺失的字母并返回它。   
+如果所有字母都在传入的字符串范围内，返回 undefined。   
+```
+function fearNotLetter(str) {
+  for(let i = 0; i < str.length; i++) {
+    //当前循环的字母Unicode编码
+    var code = str.charCodeAt(i);
+    //判断当前字母Unicode编码是否和第一位编码+循环次数相等
+    //字母的编码是连续的，如果没有缺失字母则当前字母的编码等于第一位编码+循环次数
+    if(code !== str.charCodeAt(str[0]) + i) {
+      //把当前字母的编码-1就是缺失的前一位字母
+      return String.fromCharCode(code - 1);
+    }
+  }
+  return undefined;
+}
+
+fearNotLetter("abce");
+``` 
+* 不使用循环
+```
+function fearNotLetter(str) {
+  //第一位字母的Unicode
+  let compare = str.charCodeAt(0);
+  let missing;
+  str.split('').map(function(letter,index) {
+    //第一次执行函数时判断当前字母的编码是否和第一位字母的编码相等
+    //相等的话则compare++，等于下一位字母的编码
+    if(str.charCodeAt(index) === compare) {
+      compare++;
+    } else {
+      //不相等则当前的compare是缺失的字母
+      missing = String.fromCharCode(compare);
+    }
+  })
+  return missing;
+}
+
+fearNotLetter("abce");
+```
+* 优化一下
+```
+function fearNotLetter(str) {
+  for(let i = 1; i < str.length; i++) {
+    //当前字母的编码如果大于前一个字母编码1以上时，则两个字母直接缺失字母
+    if(str.charCodeAt(i) - str.charCodeAt(i-1) > 1) {
+      //把当前字母的编码-1后则是缺失字母的编码
+      return String.fromCharCode(str.charCodeAt(i) - 1)
+    }
+  }
+}
+
+fearNotLetter("abce");
 ```
