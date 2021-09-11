@@ -7,6 +7,7 @@
 * [搜索与替换](#搜索与替换)
 * [DNA配对](#DNA配对)
 * [寻找缺失的字母](#寻找缺失的字母)
+* [集合排序](#集合排序)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -338,4 +339,48 @@ function fearNotLetter(str) {
 }
 
 fearNotLetter("abce");
+```
+
+#### 集合排序
+编写一个带有两个或更多数组的函数，并按原始提供的数组的顺序返回一个新的唯一值数组。  
+换句话说，所有数组中出现的所有值都应按其原始顺序包括在内，但最终数组中不得重复。  
+去重后的数字应按其出现在参数中的原始顺序排序，最终数组不应按数字大小进行排序。  
+```
+function uniteUnique(arr) {
+  //存储最终结果的数组
+  let finalArr = [];
+  //循环参数对象
+  for(let i = 0; i < arguments.length; i++) {
+    //把当前需要循环的数组存入
+    var arrArg = arguments[i];
+    //循环当前数组
+    for(let j = 0; j < arrArg.length; j++) {
+      var indexValue = arrArg[j];
+      //检查当前值是否在最终结果的数组上
+      if(finalArr.indexOf(indexValue) < 0) {
+        finalArr.push(indexValue)
+      }
+    }
+  }
+  return finalArr;
+}
+
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+```
+* 使用扩展符号
+```
+function uniteUnique(arr) {
+  let args = [...arguments];
+  let result = [];
+  for(let i = 0; i < args.length; i++) {
+    for(let j = 0; j < args[i].length; j++) {
+       if(!result.includes(args[i][j])) {
+        result.push(args[i][j]);
+      }
+    }
+  }
+  return result;
+}
+
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 ```
