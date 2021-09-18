@@ -8,6 +8,7 @@
 * [DNA配对](#DNA配对)
 * [寻找缺失的字母](#寻找缺失的字母)
 * [集合排序](#集合排序)
+* [转换HTML字符实体](#转换HTML字符实体)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -411,4 +412,33 @@ function uniteUnique(...arr) {
 }
 
 uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+```
+#### 转换HTML字符实体
+请将字符串中的 `&`、`<`、`>`、`"`（双引号）和 `'`（单引号）转换为相应的 HTML 字符实体。
+```
+function convertHTML(str) {
+  let temp = str.split("");
+  for(let i = 0; i < temp.length; i++) {
+    switch(temp[i]) {
+      case '&':
+        temp[i] = '&amp;';
+        break;
+      case '<':
+        temp[i] = '&lt;';
+        break;
+      case '>':
+        temp[i] = '&gt;';
+        break;
+      case '"':
+        temp[i] = '&quot;';
+        break;
+      case "'":
+        temp[i] = "&apos;";
+        break;
+    }
+  }
+  return temp.join("");
+}
+
+convertHTML("Dolce & Gabbana");
 ```
