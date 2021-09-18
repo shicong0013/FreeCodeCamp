@@ -384,3 +384,20 @@ function uniteUnique(arr) {
 
 uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 ```
+```
+function uniteUnique(arr) {
+  let newArr;
+  //把参数对象转换成数组
+  let args = Array.prototype.slice.call(arguments);
+  //对每组数组做判断
+  newArr = args.reduce(function(arrA,arrB) {
+    //删除arrB中重复的元素后与arrA连接
+    return arrA.concat(arrB.filter(function(i) {
+      return arrA.indexOf(i) === -1;
+    }))
+  })
+  return newArr;
+}
+
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+```
