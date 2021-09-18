@@ -401,3 +401,14 @@ function uniteUnique(arr) {
 
 uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 ```
+* Set 对象
+```
+function uniteUnique(...arr) {
+  //使用扩展符合并数组
+  let newArr = [].concat(...arr);
+  //使用ES6 Set对象，拥有数组去重的特性
+  return [...new Set(newArr)];
+}
+
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+```
