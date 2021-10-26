@@ -463,12 +463,12 @@ convertHTML("Dolce & Gabbana");
 比如，sumFibs(10) 应该返回 10。 因为斐波那契数列中，比 10 小的数字只有 1、1、3、5。
 ```
 function sumFibs(num) {
-  let result = 0;
+  let result = 0; //结果
   let first = 0;
   let second = 1;
   while (second <= num) {
     if(second % 2 != 0) {
-      result += second
+      result += second;  //当前数为奇数时计入结果
     }
     second += first;
     first = second - first;
@@ -478,4 +478,23 @@ function sumFibs(num) {
 }
 
 sumFibs(4);
+```
+```
+function sumFibs(num) {
+  //过滤输入
+  if(num < 0) return -1;
+  if(num ===0 || num === 1) return 1;
+
+  const arrFib = [1,1];
+  let nextNum = 0;
+  while((nextNum = arrFib[0] + arrFib[1]) <= num) {
+    arrFib.unshift(nextNum)
+  }
+  
+  return arrFib.reduce((total,curr) => {
+    return total + curr * (curr % 2);
+  },0); //设定初始值为0
+}
+
+sumFibs(75024);
 ```
