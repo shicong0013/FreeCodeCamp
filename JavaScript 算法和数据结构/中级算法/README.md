@@ -488,7 +488,7 @@ function sumFibs(num) {
   const arrFib = [1,1];
   let nextNum = 0;
   while((nextNum = arrFib[0] + arrFib[1]) <= num) {
-    arrFib.unshift(nextNum)
+    arrFib.unshift(nextNum);  把累加后符合条件的数放入数组
   }
   
   return arrFib.reduce((total,curr) => {
