@@ -10,6 +10,7 @@
 * [集合排序](#集合排序)
 * [转换HTML字符实体](#转换HTML字符实体)
 * [求斐波那契数列中的奇数之和](#求斐波那契数列中的奇数之和)
+* [质数求和](#质数求和)
 
 #### 范围内的数字求和
 我们会传入一个由两个数字组成的数组。 给出一个含有两个数字的数组，我们需要写一个函数，让它返回这两个数字间所有数字（包含这两个数字）的总和。 最低的数字并不总是第一位。 
@@ -497,4 +498,36 @@ function sumFibs(num) {
 }
 
 sumFibs(75024);
+```
+### 质数求和
+质数（prime number）是大于 1 且仅可以被 1 和自己整除的数。 比如，2 就是一个质数，因为它只可以被 1 和 2（它本身）整除。 相反，4 不是质数，因为它可以被 1, 2 和 4 整除。
+请完成 sumPrimes 方法，使其返回小于等于传入参数数字的所有质数之和。
+```
+function sumPrimes(num) {
+  //该函数用来判断参数是否为素数
+  function isPrimes(number) {
+    for(let i = 2; i < number; i++) {
+      
+      //如果能被除了1和自身以外被整除则不是素数
+      if(number % i === 0 ) {
+        return false;
+      }
+    }
+    return true
+  }
+  //1不是素数，所以当递归到num为1时停止递归返回0
+  if(num === 1) {
+    return 0;
+  }
+  //对于非素数把参数-1后递归调用
+  if(isPrimes(num) === false) {
+    return sumPrimes(num - 1);
+  }
+  //对于素数把返回值加上后递归调用-1的参数
+  if(isPrimes(num) === true) {
+    return num + sumPrimes(num -1);
+  }
+}
+
+sumPrimes(10);
 ```
