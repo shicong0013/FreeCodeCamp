@@ -531,3 +531,24 @@ function sumPrimes(num) {
 
 sumPrimes(10);
 ```
+```
+function sumPrimes(num) {
+  //(v,k)表示数组的值和键，arr里是所需长度的数组的键
+  //[...Array(100).keys()]或者Array.from(new Array(100).keys())
+  let arr = Array.from({length: num+1}, (v,k) => k).slice(2);
+  let onlyPrimes = arr.filter((n) => {
+    let m = n-1;
+    //当一个数不是质数时必定有两个约数一个大于sqrt(n)，另一个小于
+    while (m > 1 && m >= Math.sqrt(n)) {
+      if((n % m) === 0) {
+        return false;
+      }
+        m--;
+    }
+    return true;
+  });
+  return onlyPrimes.reduce((a,b) => a+b);
+}
+
+sumPrimes(10);
+```
